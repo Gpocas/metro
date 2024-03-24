@@ -834,8 +834,8 @@ video {
   height: 2rem;
 }
 
-.h-screen {
-  height: 100vh;
+.min-h-screen {
+  min-height: 100vh;
 }
 
 .w-12 {
@@ -2087,6 +2087,11 @@ video {
   line-height: 2.25rem;
 }
 
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
 .font-bold {
   font-weight: 700;
 }
@@ -2581,16 +2586,16 @@ video {
 }
 
 @media (min-width: 640px) {
-  .sm\:h-14 {
-    height: 3.5rem;
+  .sm\:h-16 {
+    height: 4rem;
   }
 
-  .sm\:w-10 {
-    width: 2.5rem;
+  .sm\:w-12 {
+    width: 3rem;
   }
 
-  .sm\:w-14 {
-    width: 3.5rem;
+  .sm\:w-16 {
+    width: 4rem;
   }
 
   .sm\:p-4 {

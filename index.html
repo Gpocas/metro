@@ -4,80 +4,81 @@
 <head>
   <meta charset="UTF-8" />
   <title>Metro Game</title>
-  <!-- <script src="https://cdn.tailwindcss.com"></script> -->
   <link href="./output.css" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="./favicon.ico">
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 
 <body>
-  <div id="app" class="bg-zinc-900 h-screen">
-    <nav class="text-white text-center font-bold text-3xl p-2 font-mono">
-      {{name}}
-    </nav>
-    <hr />
+  <div id="app" class="bg-zinc-900 min-h-screen">
 
-    <div v-if="win" class="flex flex-col items-center">
-      <div class="text-green-600 text-center font-bold text-3xl p-2 font-mono"> Parabens Você acertou :)</div>
-      <button class="text-white bg-blue-500 font-bold rounded-md p-2 px-4" @click="newGame()">New Game</button>
-
-    </div>
-
-    <div v-if="win === false" class="flex flex-col items-center">
-      <div class="text-red-600 text-center font-bold text-3xl p-2 font-mono"> A palavra era {{word}}, quem sabe na
-        proxima :(</div>
-      <button class="text-white bg-blue-500 font-bold rounded-md p-2 px-4" @click="newGame()">New Game</button>
-    </div>
-
-    <div id="gameboard" class="px-10 py-5 grid gap-y-1 items-center w-100 justify-center">
-      <div v-for="(row, index1) in gameBoard" class="flex gap-1 w-fit">
-        <div v-for="(cell, index2) in row"
-          class="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl rounded-sm text-black border-2 border-gray-300 dark:bg-zinc-800 dark:text-white">
-          {{ cell || ' ' }}
+      <nav class="text-white text-center font-bold text-4xl p-2 font-mono">
+        {{name}}
+      </nav>
+      <hr />
+  
+      <div v-if="win" class="flex flex-col items-center">
+        <div class="text-green-600 text-center font-bold text-3xl p-2 font-mono"> Parabens Você acertou :)</div>
+        <button class="text-white bg-blue-500 font-bold rounded-md p-2 px-4" @click="newGame()">New Game</button>
+  
+      </div>
+  
+      <div v-if="win === false" class="flex flex-col items-center">
+        <div class="text-red-600 text-center font-bold text-3xl p-2 font-mono"> A palavra era {{word}}, quem sabe na
+          proxima :(</div>
+        <button class="text-white bg-blue-500 font-bold rounded-md p-2 px-4" @click="newGame()">New Game</button>
+      </div>
+  
+      <div id="gameboard" class="px-10 py-5 grid gap-y-1 items-center w-100 justify-center">
+        <div v-for="(row, index1) in gameBoard" class="flex gap-1 w-fit">
+          <div v-for="(cell, index2) in row"
+            class="h-12 w-12 sm:w-16 sm:h-16 grid place-items-center p-0 m-0 font-bold text-2xl rounded-sm text-black border-2 border-gray-300 dark:bg-zinc-800 dark:text-white">
+            {{ cell || ' ' }}
+          </div>
+        </div>
+  
+        <div class="grid place-items-center h-8 font-bold dark:text-white"></div>
+      </div>
+  
+      <div class="flex flex-col items-center w-100 pb-5">
+        <div class="flex gap-1 my-0.5 w-fit">
+          <button v-for="l in line1" @click="key(l)"
+            class=" w-7 sm:w-12 bg-gray-200 hover:bg-gray-300 dark:bg-zinc-400 dark:text-white dark:hover:bg-zinc-500 h-14 300 grid items-center rounded font-semibold cursor-pointer">
+            {{l}}
+          </button>
+  
+        </div>
+        <div class="flex gap-1 my-0.5 w-fit">
+          <button v-for="l in line2" @click="key(l)"
+            class="w-7 sm:w-12 bg-gray-200 hover:bg-gray-300 dark:bg-zinc-400 dark:text-white dark:hover:bg-zinc-500 h-14 300 grid items-center rounded font-semibold cursor-pointer">
+            {{l}}
+          </button>
+  
+  
+        </div>
+        <div class="flex gap-1 my-0.5 w-fit">
+          <button @click="key('Enter')"
+            class="p-2 sm:p-4 bg-gray-200 hover:bg-gray-300 dark:bg-zinc-400 dark:text-white dark:hover:bg-zinc-500 h-14 300 grid items-center rounded font-semibold cursor-pointer">
+            ENTER
+          </button>
+  
+          <button v-for="l in line3" @click="key(l)"
+            class="w-7 sm:w-12 bg-gray-200 hover:bg-gray-300 dark:bg-zinc-400 dark:text-white dark:hover:bg-zinc-500 h-14 300 grid items-center rounded font-semibold cursor-pointer">
+            {{l}}
+          </button>
+  
+          <button @click="key('Remove')"
+            class="p-2 sm:p-4 bg-gray-200 hover:bg-gray-300 dark:bg-zinc-400 dark:text-white dark:hover:bg-zinc-500 h-14 300 grid items-center rounded font-semibold cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-square-fill"
+              viewBox="0 0 16 16">
+              <path
+                d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708" />
+            </svg>
+          </button>
         </div>
       </div>
 
-      <div class="grid place-items-center h-8 font-bold dark:text-white"></div>
     </div>
-
-    <div class="flex flex-col items-center w-100 pb-5">
-      <div class="flex gap-1 my-0.5 w-fit">
-        <button v-for="l in line1" @click="key(l)"
-          class=" w-7 sm:w-10 bg-gray-200 hover:bg-gray-300 dark:bg-zinc-400 dark:text-white dark:hover:bg-zinc-500 h-14 300 grid items-center rounded font-semibold cursor-pointer">
-          {{l}}
-        </button>
-
-      </div>
-      <div class="flex gap-1 my-0.5 w-fit">
-        <button v-for="l in line2" @click="key(l)"
-          class="w-7 sm:w-10 bg-gray-200 hover:bg-gray-300 dark:bg-zinc-400 dark:text-white dark:hover:bg-zinc-500 h-14 300 grid items-center rounded font-semibold cursor-pointer">
-          {{l}}
-        </button>
-
-
-      </div>
-      <div class="flex gap-1 my-0.5 w-fit">
-        <button @click="key('Enter')"
-          class="p-2 sm:p-4 bg-gray-200 hover:bg-gray-300 dark:bg-zinc-400 dark:text-white dark:hover:bg-zinc-500 h-14 300 grid items-center rounded font-semibold cursor-pointer">
-          ENTER
-        </button>
-
-        <button v-for="l in line3" @click="key(l)"
-          class="w-7 sm:w-10 bg-gray-200 hover:bg-gray-300 dark:bg-zinc-400 dark:text-white dark:hover:bg-zinc-500 h-14 300 grid items-center rounded font-semibold cursor-pointer">
-          {{l}}
-        </button>
-
-        <button @click="key('Remove')"
-          class="p-2 sm:p-4 bg-gray-200 hover:bg-gray-300 dark:bg-zinc-400 dark:text-white dark:hover:bg-zinc-500 h-14 300 grid items-center rounded font-semibold cursor-pointer">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-square-fill"
-            viewBox="0 0 16 16">
-            <path
-              d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708" />
-          </svg>
-        </button>
-      </div>
-    </div>
-  </div>
 
   <script src="words.js"></script>
   <script>
@@ -205,7 +206,6 @@
             const emptyIndex = currentLine.indexOf('');
             if (emptyIndex !== -1) {
               currentLine[emptyIndex] = l;
-              console.log(this.word)
             }
 
 
