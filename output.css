@@ -66,6 +66,8 @@ body {
   /* 1 */
   line-height: inherit;
   /* 2 */
+
+  touch-action: pan-x pan-y;
 }
 
 /*
