@@ -18,16 +18,15 @@
       </nav>
       <hr />
   
-      <div v-if="win" class="flex flex-col items-center md:pt-8">
-        <div class="text-green-600 text-center font-bold text-3xl p-2 font-mono"> Parabens Você acertou :)</div>
-        <button class="text-white bg-blue-500 font-bold rounded-md p-2 px-4" @click="newGame()">New Game</button>
-  
+      <div v-if="win" class="flex flex-col items-center lg:pt-4">
+        <div class="text-green-600 text-center font-bold sm:text-5xl sm:pt-4 sm:pb-8 lg:text-2xl lg:pb-2 font-mono"> Parabens Você acertou :)</div>
+        <button class="text-white bg-blue-500 font-bold rounded-md sm:p-4 sm:px-6 sm:text-3xl lg:p-2 lg:px-4 lg:text-base" @click="newGame()">New Game</button>
       </div>
   
       <div v-if="win === false" class="flex flex-col items-center">
-        <div class="text-red-600 text-center font-bold text-3xl p-2 font-mono"> A palavra era {{word}}, quem sabe na
+        <div class="text-red-600 text-center font-bold sm:text-5xl sm:pt-4 sm:pb-8 lg:text-2xl lg:pb-2 font-mono"> A palavra era {{word}}, quem sabe na
           proxima :(</div>
-        <button class="text-white bg-blue-500 font-bold rounded-md p-2 px-4" @click="newGame()">New Game</button>
+        <button class="text-white bg-blue-500 font-bold rounded-md sm:p-4 sm:px-6 sm:text-3xl lg:p-2 lg:px-4 lg:text-base" @click="newGame()">New Game</button>
       </div>
   
       <div id="gameboard" class="sm:py-20 sm:pb-28  lg:py-5 px-10 grid gap-y-1 items-center w-100 justify-center">
