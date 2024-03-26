@@ -202,6 +202,7 @@
         const removeAccents = str =>
           str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
+        words = ['negro', 'nobre', 'dizer', 'amigo']
         newWord = removeAccents(words[Math.floor(Math.random() * words.length)]);
 
         return {
