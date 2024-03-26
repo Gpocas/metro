@@ -6,79 +6,185 @@
   <meta meta name="viewport" content="maximum-scale=1, user-scalable=no">
   <title>Metro Game</title>
   <link href="./output.css" rel="stylesheet">
+  <!-- <script src="https://cdn.tailwindcss.com"></script> -->
   <link rel="icon" type="image/x-icon" href="./favicon.ico">
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 
-<body>
+<body class="w-full">
   <div id="app" class="bg-zinc-900 min-h-screen">
 
-      <nav class="text-white text-center font-bold sm:text-7xl sm:p-4 lg:text-4xl lg:p-2 font-mono">
-        {{name}}
-      </nav>
-      <hr />
-  
-      <div v-if="win" class="flex flex-col items-center lg:pt-4">
-        <div class="text-green-600 text-center font-bold sm:text-5xl sm:pt-4 sm:pb-8 lg:text-2xl lg:pb-2 font-mono"> Parabens Você acertou :)</div>
-        <button class="text-white bg-blue-500 font-bold rounded-md sm:p-4 sm:px-6 sm:text-3xl lg:p-2 lg:px-4 lg:text-base" @click="newGame()">New Game</button>
-      </div>
-  
-      <div v-if="win === false" class="flex flex-col items-center">
-        <div class="text-red-600 text-center font-bold sm:text-5xl sm:pt-4 sm:pb-8 lg:text-2xl lg:pb-2 font-mono"> A palavra era {{word}}, quem sabe na
-          proxima :(</div>
-        <button class="text-white bg-blue-500 font-bold rounded-md sm:p-4 sm:px-6 sm:text-3xl lg:p-2 lg:px-4 lg:text-base" @click="newGame()">New Game</button>
-      </div>
-  
-      <div id="gameboard" class="sm:py-20 sm:pb-28  lg:py-5 px-10 grid gap-y-1 items-center w-100 justify-center">
-        <div v-for="(row, index1) in gameBoard" class="flex gap-1 w-fit">
-          <div v-for="(cell, index2) in row"
-            class="sm:w-28 sm:h-28 sm:text-3xl lg:w-14 lg:h-14 lg:text-xl grid place-items-center p-0 m-0 font-bold  rounded-sm text-black border-2 border-gray-300 dark:bg-zinc-800 dark:text-white">
-            {{ cell || ' ' }}
+        <!-- modal inicio -->
+        <div v-if="showModal" class="absolute left-1/2 flex sm:w-full sm:h-[70%] lg:w-full lg:h-full -translate-x-1/2 items-center justify-center ">
+          <div class=" bg-zinc-800 relative max-h-full w-[90%] sm:max-w-4xl sm:text-3xl lg:max-w-lg lg:text-base ">
+            <div class="w-full sm:p-8 sm:py-12 lg:p-4 lg:py-4 text-white rounded-lg  bg-gray-20 dark:bg-black-60">
+              <div class="pb-3">
+                <h1 class="text-center font-bold">COMO JOGAR</h1>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                  class="absolute top-4 right-4 sm:h-12 sm:w-12 lg:h-6 lg:w-6 cursor-pointer"
+                  @click="closeModal()"
+                  >
+                  <path fill="currentColor"
+                    d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z">
+                  </path>
+                </svg>
+              </div>
+
+              <p class="my-3">Esse jogo segue as mesmas regras do jogo original <strong>TERMO</strong>, uma palavara será sorteada aleatoriamente</p>
+              <p class="my-3">Descubra a palavra certa em 6 tentativas. Depois de cada
+                tentativa, as peças mostram o quão perto você está da
+                solução.</p>
+              <div class="flex flex-col gap-5 border-t-2 border-black-20 pt-3"><b>Exemplos</b>
+                <div>
+                  <div class="mb-2 flex gap-1">
+                    <div
+                      class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 bg-green-700 dark:bg-green-700 border-green-700 dark:border-green-100 text-white">
+                      t</div>
+                    <div
+                      class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-black dark:text-white">
+                      u</div>
+                    <div
+                      class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-black dark:text-white">
+                      r</div>
+                    <div
+                      class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-black dark:text-white">
+                      m</div>
+                    <div
+                      class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-black dark:text-white">
+                      a</div>
+                  </div>
+                  <p>A letra <b>T</b> faz parte da palavra e está na posição correta</p>
+                </div>
+                <div>
+                  <div class="mb-2 flex gap-1">
+                    <div
+                      class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-black dark:text-white">
+                      v</div>
+                    <div
+                      class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-black dark:text-white">
+                      i</div>
+                    <div
+                      class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 bg-yellow-500 dark:bg-yellow-500 border-yellow-500 dark:border-yellow-500 text-white">
+                      o</div>
+                    <div
+                      class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-black dark:text-white">
+                      l</div>
+                    <div
+                      class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-black dark:text-white">
+                      a</div>
+                  </div>
+                  <p>A letra <b>O</b> faz parte da palavra mas em outra posição</p>
+                </div>
+                <div>
+                  <div class="mb-2 flex gap-1">
+                    <div
+                      class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-black dark:text-white">
+                      p</div>
+                    <div
+                      class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-black dark:text-white">
+                      u</div>
+                    <div
+                      class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-black dark:text-white">
+                      l</div>
+                    <div
+                      class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 bg-zinc-600 dark:bg-zinc-600 border-bg-zinc-600 dark:border-black-10 text-white">
+                      g</div>
+                    <div
+                      class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-black dark:text-white">
+                      a</div>
+                  </div>
+                  <p>A letra <b>G</b> não faz parte da palavra</p>
+                  <br>
+                  <p>Boa sorte ;)</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-  
-        <div class="grid place-items-center h-8 font-bold dark:text-white"></div>
-      </div>
-  
-      <div class="flex flex-col items-center  w-100 pb-5">
-        <div class="flex gap-1 my-0.5 w-fit">
-          <button v-for="l in line1" @click="key(l)"
-            class=" sm:h-28 sm:w-20 lg:w-12 sm:text-3xl lg:h-12 lg:text-base bg-gray-200 hover:bg-gray-300 dark:bg-zinc-400 dark:text-white dark:hover:bg-zinc-500  300 grid items-center rounded font-semibold cursor-pointer">
-            {{l}}
-          </button>
-  
-        </div>
-        <div class="flex gap-1 my-0.5 w-fit">
-          <button v-for="l in line2" @click="key(l)"
-            class="sm:h-28 sm:w-20 sm:text-3xl lg:w-12 lg:h-12 lg:text-base bg-gray-200 hover:bg-gray-300 dark:bg-zinc-400 dark:text-white dark:hover:bg-zinc-500  300 grid items-center rounded font-semibold cursor-pointer">
-            {{l}}
-          </button>
-  
-  
-        </div>
-        <div class="flex gap-1 my-0.5 w-fit">
-          <button @click="key('Enter')"
-            class=" sm:h-28 sm:p-12 sm:text-3xl lg:p-4 lg:h-12 lg:text-base bg-gray-200 hover:bg-gray-300 dark:bg-zinc-400 dark:text-white dark:hover:bg-zinc-500 flex items-center rounded font-semibold cursor-pointer">
-            ENTER
-          </button>
-  
-          <button v-for="l in line3" @click="key(l)"
-            class="sm:w-20 sm:h-28 sm:text-3xl lg:w-12 lg:h-12 lg:text-base bg-gray-200 hover:bg-gray-300 dark:bg-zinc-400 dark:text-white dark:hover:bg-zinc-500 300 grid items-center rounded font-semibold cursor-pointer">
-            {{l}}
-          </button>
-  
-          <button @click="key('Remove')"
-            class=" sm:p-10 sm:px-16 sm:h-28 lg:p-4 lg:px-7 lg:h-12 bg-gray-200 hover:bg-gray-300 dark:bg-zinc-400 dark:text-white dark:hover:bg-zinc-500  flex items-center rounded font-semibold cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="sm:w-8 sm:h-8 lg:w-4 lg:h-4"
-              viewBox="0 0 16 16">
-              <path
-                d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708" />
-            </svg>
-          </button>
+        <!-- modal fim -->
+
+    <header class="text-white flex items-center text-center font-bold sm:text-7xl sm:p-4 lg:text-4xl lg:p-2 font-mono">
+      <!-- SVG ? -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+        class="ml-2 sm:h-12 sm:w-12 lg:h-7 lg:w-7 cursor-pointer opacity-100 hover:opacity-80"
+        @click="openModal()"
+        >
+        <path fill="currentColor"
+          d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z">
+        </path>
+      </svg>
+      <div class="flex-1 text-center">{{name}}</div>
+    </header>
+    <hr />
+
+
+
+
+    <div v-if="win" class="flex flex-col items-center lg:pt-4">
+      <div class="text-green-600 text-center font-bold sm:text-5xl sm:pt-4 sm:pb-8 lg:text-2xl lg:pb-2 font-mono">
+        Parabens Você acertou :)</div>
+      <button class="text-white bg-blue-500 font-bold rounded-md sm:p-4 sm:px-6 sm:text-3xl lg:p-2 lg:px-4 lg:text-base"
+        @click="newGame()">New Game</button>
+    </div>
+
+    <div v-if="win === false" class="flex flex-col items-center">
+      <div class="text-red-600 text-center font-bold sm:text-5xl sm:pt-4 sm:pb-8 lg:text-2xl lg:pb-2 font-mono"> A
+        palavra era {{word}}, quem sabe na
+        proxima :(</div>
+      <button class="text-white bg-blue-500 font-bold rounded-md sm:p-4 sm:px-6 sm:text-3xl lg:p-2 lg:px-4 lg:text-base"
+        @click="newGame()">New Game</button>
+    </div>
+
+    <div id="gameboard" class="sm:py-20 sm:pb-28  lg:py-5 px-10 grid gap-y-1 items-center w-100 justify-center">
+      <div v-for="(row, index1) in gameBoard" class="flex gap-1 w-fit">
+        <div v-for="(cell, index2) in row"
+          class="sm:w-28 sm:h-28 sm:text-3xl lg:w-14 lg:h-14 lg:text-xl grid place-items-center p-0 m-0 font-bold  rounded-sm text-black border-2 border-gray-300 dark:bg-zinc-800 dark:text-white">
+          {{ cell || ' ' }}
         </div>
       </div>
 
+      <div class="grid place-items-center h-8 font-bold dark:text-white"></div>
     </div>
+
+    <div class="flex flex-col items-center  w-100 pb-5">
+      <div class="flex gap-1 my-0.5 w-fit">
+        <button v-for="l in line1" @click="key(l)"
+          class=" sm:h-28 sm:w-20 lg:w-12 sm:text-3xl lg:h-12 lg:text-base bg-gray-200 hover:bg-gray-300 dark:bg-zinc-400 dark:text-white dark:hover:bg-zinc-500  300 grid items-center rounded font-semibold cursor-pointer">
+          {{l}}
+        </button>
+
+      </div>
+      <div class="flex gap-1 my-0.5 w-fit">
+        <button v-for="l in line2" @click="key(l)"
+          class="sm:h-28 sm:w-20 sm:text-3xl lg:w-12 lg:h-12 lg:text-base bg-gray-200 hover:bg-gray-300 dark:bg-zinc-400 dark:text-white dark:hover:bg-zinc-500  300 grid items-center rounded font-semibold cursor-pointer">
+          {{l}}
+        </button>
+
+
+      </div>
+      <div class="flex gap-1 my-0.5 w-fit">
+        <button @click="key('Enter')"
+          class=" sm:h-28 sm:p-12 sm:text-3xl lg:p-4 lg:h-12 lg:text-base bg-gray-200 hover:bg-gray-300 dark:bg-zinc-400 dark:text-white dark:hover:bg-zinc-500 flex items-center rounded font-semibold cursor-pointer">
+          ENTER
+        </button>
+
+        <button v-for="l in line3" @click="key(l)"
+          class="sm:w-20 sm:h-28 sm:text-3xl lg:w-12 lg:h-12 lg:text-base bg-gray-200 hover:bg-gray-300 dark:bg-zinc-400 dark:text-white dark:hover:bg-zinc-500 300 grid items-center rounded font-semibold cursor-pointer">
+          {{l}}
+        </button>
+
+        <button @click="key('Remove')"
+          class=" sm:p-10 sm:px-16 sm:h-28 lg:p-4 lg:px-7 lg:h-12 bg-gray-200 hover:bg-gray-300 dark:bg-zinc-400 dark:text-white dark:hover:bg-zinc-500  flex items-center rounded font-semibold cursor-pointer">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="sm:w-8 sm:h-8 lg:w-4 lg:h-4"
+            viewBox="0 0 16 16">
+            <path
+              d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+  </div>
 
   <script src="words.js"></script>
   <script>
@@ -100,6 +206,7 @@
           line1: "QWERTYUIOP",
           line2: "ASDFGHJKL",
           line3: "ZXCVBNM",
+          showModal: false,
           gameBoard: [
             ['', '', '', '', ''],
             ['', '', '', '', ''],
@@ -114,6 +221,14 @@
 
       methods: {
 
+        openModal() {
+          this.showModal = true;
+        },
+
+        closeModal() {
+          this.showModal = false;
+        },
+
         newGame() {
           location.reload();
         },
@@ -122,8 +237,6 @@
           let valor = Math.random() * (max - min) + min
           return Math.floor(valor)
         },
-
-
 
         key(l) {
           if (l === 'Enter') {
