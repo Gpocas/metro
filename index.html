@@ -185,7 +185,15 @@
     </div>
 
   </div>
-
+  
+  <script>
+  
+    document.addEventListener('touchmove', function (event) {
+      if (event.scale !== 1) { event.preventDefault(); }
+    }, false);
+  
+  </script>
+  
   <script src="words.js"></script>
   <script>
     const app = Vue.createApp({
