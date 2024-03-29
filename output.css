@@ -2754,6 +2754,10 @@ video {
     height: 2.5rem;
   }
 
+  .md\:h-14 {
+    height: 3.5rem;
+  }
+
   .md\:h-16 {
     height: 4rem;
   }
@@ -2770,6 +2774,10 @@ video {
     height: 90%;
   }
 
+  .md\:h-4 {
+    height: 1rem;
+  }
+
   .md\:w-10 {
     width: 2.5rem;
   }
@@ -2778,16 +2786,20 @@ video {
     width: 3.5rem;
   }
 
-  .md\:w-16 {
-    width: 4rem;
-  }
-
   .md\:w-6 {
     width: 1.5rem;
   }
 
   .md\:w-8 {
     width: 2rem;
+  }
+
+  .md\:w-12 {
+    width: 3rem;
+  }
+
+  .md\:w-4 {
+    width: 1rem;
   }
 
   .md\:max-w-2xl {
@@ -2802,6 +2814,14 @@ video {
     padding: 2rem;
   }
 
+  .md\:p-6 {
+    padding: 1.5rem;
+  }
+
+  .md\:p-4 {
+    padding: 1rem;
+  }
+
   .md\:px-4 {
     padding-left: 1rem;
     padding-right: 1rem;
@@ -2810,6 +2830,21 @@ video {
   .md\:py-10 {
     padding-top: 2.5rem;
     padding-bottom: 2.5rem;
+  }
+
+  .md\:py-6 {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .md\:py-8 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .md\:px-8 {
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 
   .md\:pb-4 {
@@ -2829,6 +2864,21 @@ video {
   .md\:text-xl {
     font-size: 1.25rem;
     line-height: 1.75rem;
+  }
+
+  .md\:text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+
+  .md\:text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  .md\:text-4xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
   }
 }
 
@@ -2891,6 +2941,14 @@ video {
 
   .lg\:p-4 {
     padding: 1rem;
+  }
+
+  .lg\:p-6 {
+    padding: 1.5rem;
+  }
+
+  .lg\:p-8 {
+    padding: 2rem;
   }
 
   .lg\:px-4 {
@@ -2993,6 +3051,10 @@ video {
 
   .smd\:p-6 {
     padding: 1.5rem;
+  }
+
+  .smd\:p-4 {
+    padding: 1rem;
   }
 
   .smd\:px-4 {
