@@ -443,5 +443,6 @@ const words = [
     'veado',
     'furia',
     'audio',
+    'sushi',
 ]
 
