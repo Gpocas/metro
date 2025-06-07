@@ -21,5 +21,5 @@ npx tailwindcss init
 
 **start watch process** 
 ```bash
-npx tailwindcss -i ./src/input.css -o ./src/output.css --watch
+npm run css
 ```

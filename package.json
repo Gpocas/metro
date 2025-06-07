@@ -1,5 +1,12 @@
 {
+  "scripts": {
+    "server": "npx five-server",
+    "css": "npx tailwindcss -i input.css -o output.css --watch"
+  },
   "devDependencies": {
     "tailwindcss": "^3.4.17"
+  },
+  "dependencies": {
+    "five-server": "^0.4.4"
   }
 }
