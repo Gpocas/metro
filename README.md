@@ -10,3 +10,16 @@ Made with Tailwind and VueJS to test my skills
 
 [Demo Here](https://gpocas.github.io/metro/)
 
+
+### Build css
+
+**install tailwind** 
+```bash
+npm install -D tailwindcss@3
+npx tailwindcss init
+```
+
+**start watch process** 
+```bash
+npx tailwindcss -i ./src/input.css -o ./src/output.css --watch
+```

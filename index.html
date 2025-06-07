@@ -5,8 +5,8 @@
   <meta charset="UTF-8" />
   <meta meta name="viewport" content=" maximum-scale=1.0, user-scalable=no">
   <title>Metro Game</title>
-  <!-- <link href="./output.css" rel="stylesheet"> -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="./output.css" rel="stylesheet">
+  <!-- <script src="https://cdn.tailwindcss.com"></script> -->
   <link rel="icon" type="image/x-icon" href="./favicon.ico">
   <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
 </head>
@@ -248,7 +248,7 @@
 
         querySelectorIncludesText (selector, text){
           return Array.from(document.querySelectorAll(selector))
-            .find(el => el.textContent.includes(text));
+            .find(el => el.innerText == text);
         },
 
         key(l) {
@@ -312,7 +312,7 @@
                     d.classList.remove('dark:bg-zinc-800')
                     d.classList.add('bg-zinc-600')
                     btn = this.querySelectorIncludesText('button', d.innerText)
-                    btn.classList.remove('dark:bg-zinc-400')
+                    btn.classList.remove('bg-zinc-400')
                     btn.classList.add('bg-zinc-600')
 
 
