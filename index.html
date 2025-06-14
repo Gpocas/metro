@@ -1,439 +1,495 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta meta name="viewport" content=" maximum-scale=1.0, user-scalable=no" />
+    <title>Metro Game</title>
+    <link href="./output.css" rel="stylesheet" />
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta meta name="viewport" content=" maximum-scale=1.0, user-scalable=no">
-  <title>Metro Game</title>
-  <link href="./output.css" rel="stylesheet">
-  <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-  <link rel="icon" type="image/x-icon" href="./favicon.ico">
-  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
-</head>
+  <style>
+    * {
+      touch-action: manipulation;
+    }
+  </style>
 
-<style>
-  * {
-    touch-action: manipulation;
-  }
-</style>
-
-<body class="w-full">
-  <div id="app" class="bg-zinc-900 min-h-screen">
-
-    <!-- modal inicio -->
-    <div v-if="showModal"
-      class="absolute left-1/2 flex sm:w-full sm:h-[70%] smd:w-full smd:h-[90%] md:h-[90%] lg:w-full lg:h-full -translate-x-1/2 items-center justify-center ">
+  <body class="w-full">
+    <div id="app" class="bg-zinc-900 min-h-screen">
+      <!-- modal inicio -->
       <div
-        class=" bg-zinc-800 relative max-h-full w-[90%] sm:max-w-4xl sm:text-3xl smd:max-w-xl smd:text-lg smd:p-4 md:max-w-2xl md:text-xl lg:max-w-lg lg:text-base ">
+        v-if="showModal"
+        class="absolute left-1/2 flex sm:w-full sm:h-[70%] smd:w-full smd:h-[90%] md:h-[90%] lg:w-full lg:h-full -translate-x-1/2 items-center justify-center"
+      >
         <div
-          class="w-full sm:p-8 sm:py-12 md:p-6 md:py-8 lg:p-8 lg:py-4 text-white rounded-lg bg-gray-20 dark:bg-black-60">
-          <div class="pb-3">
-            <h1 class="text-center font-bold">COMO JOGAR</h1>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-              class="absolute top-4 right-4 sm:h-12 sm:w-12 md:h-8 md:w-8 lg:h-6 lg:w-6 cursor-pointer"
-              @click="closeModal()">
-              <path fill="currentColor"
-                d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z">
-              </path>
+          class="bg-zinc-800 relative max-h-full w-[90%] sm:max-w-4xl sm:text-3xl smd:max-w-xl smd:text-lg smd:p-4 md:max-w-2xl md:text-xl lg:max-w-lg lg:text-base"
+        >
+          <div
+            class="w-full sm:p-8 sm:py-12 md:p-6 md:py-8 lg:p-8 lg:py-4 text-white rounded-lg bg-gray-20 dark:bg-black-60"
+          >
+            <div class="pb-3">
+              <h1 class="text-center font-bold">COMO JOGAR</h1>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                class="absolute top-4 right-4 sm:h-12 sm:w-12 md:h-8 md:w-8 lg:h-6 lg:w-6 cursor-pointer"
+                @click="closeModal()"
+              >
+                <path
+                  fill="currentColor"
+                  d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                ></path>
+              </svg>
+            </div>
+
+            <p class="my-3">
+              Esse jogo segue as mesmas regras do jogo original
+              <strong>TERMO</strong>, uma palavara será sorteada aleatoriamente
+            </p>
+            <p class="my-3">
+              Descubra a palavra certa em 6 tentativas. Depois de cada
+              tentativa, as peças mostram o quão perto você está da solução.
+            </p>
+            <div class="flex flex-col gap-5 border-t-2 border-black-20 pt-3">
+              <b>Exemplos</b>
+              <div>
+                <div class="mb-2 flex gap-1">
+                  <div
+                    class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 bg-green-700 dark:bg-green-700 border-green-700 dark:border-green-100 text-white"
+                  >
+                    t
+                  </div>
+                  <div
+                    class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-white"
+                  >
+                    u
+                  </div>
+                  <div
+                    class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-white"
+                  >
+                    r
+                  </div>
+                  <div
+                    class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-white"
+                  >
+                    m
+                  </div>
+                  <div
+                    class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-white"
+                  >
+                    a
+                  </div>
+                </div>
+                <p>
+                  A letra <b>T</b> faz parte da palavra e está na posição
+                  correta
+                </p>
+              </div>
+              <div>
+                <div class="mb-2 flex gap-1">
+                  <div
+                    class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-white"
+                  >
+                    v
+                  </div>
+                  <div
+                    class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-white"
+                  >
+                    i
+                  </div>
+                  <div
+                    class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 bg-yellow-500 dark:bg-yellow-500 border-yellow-500 dark:border-yellow-500 text-white"
+                  >
+                    o
+                  </div>
+                  <div
+                    class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-white"
+                  >
+                    l
+                  </div>
+                  <div
+                    class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-white"
+                  >
+                    a
+                  </div>
+                </div>
+                <p>
+                  A letra <b>O</b> faz parte da palavra mas em outra posição
+                </p>
+              </div>
+              <div>
+                <div class="mb-2 flex gap-1">
+                  <div
+                    class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-white"
+                  >
+                    p
+                  </div>
+                  <div
+                    class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-white"
+                  >
+                    u
+                  </div>
+                  <div
+                    class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-white"
+                  >
+                    l
+                  </div>
+                  <div
+                    class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 bg-zinc-600 dark:bg-zinc-600 border-bg-zinc-600 dark:border-black-10 text-white"
+                  >
+                    g
+                  </div>
+                  <div
+                    class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-white"
+                  >
+                    a
+                  </div>
+                </div>
+                <p>A letra <b>G</b> não faz parte da palavra</p>
+                <br />
+                <p>Boa sorte ;)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- modal fim -->
+
+      <header
+        class="text-white flex items-center text-center font-bold sm:text-7xl sm:p-4 smd:text-3xl smd:p-2 md:text-4xl md:p-2 lg:text-4xl lg:p-2 font-mono"
+      >
+        <!-- SVG ? -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          class="ml-2 sm:h-12 sm:w-12 smd:h-8 smd:w-8 md:h-8 md:w-8 lg:h-7 lg:w-7 cursor-pointer opacity-100 hover:opacity-80"
+          @click="openModal()"
+        >
+          <path
+            fill="currentColor"
+            d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"
+          ></path>
+        </svg>
+        <div class="flex-1 text-center">{{name}}</div>
+      </header>
+      <hr />
+
+      <div v-if="win" class="flex flex-col items-center lg:pt-4">
+        <div
+          class="text-green-600 text-center font-bold sm:text-5xl sm:pt-4 sm:pb-8 smd:text-2xl smd:pt-6 smd:pb-6 md:text-2xl md:pb-4 lg:text-2xl lg:pb-2 font-mono"
+        >
+          Parabens Você acertou :)
+        </div>
+        <button
+          class="text-white bg-blue-500 font-bold rounded-md sm:p-4 sm:px-6 sm:text-3xl smd:p-2 smd:px-4 smd:text-lg md:p-2 md:px-4 md:text-lg lg:p-2 lg:px-4 lg:text-base"
+          @click="newGame()"
+        >
+          New Game
+        </button>
+      </div>
+
+      <div v-if="win === false" class="flex flex-col items-center">
+        <div
+          class="text-red-600 text-center font-bold sm:text-5xl sm:pt-4 sm:pb-8 smd:text-xl smd:pt-6 smd:pb-6 md:text-2xl md:pb-4 lg:text-2xl lg:pb-2 font-mono"
+        >
+          A palavra era {{word}}, quem sabe na proxima :(
+        </div>
+        <button
+          class="text-white bg-blue-500 font-bold rounded-md sm:p-4 sm:px-6 sm:text-3xl smd:p-2 smd:px-4 smd:text-lg md:p-2 md:px-4 md:text-lg lg:p-2 lg:px-4 lg:text-base"
+          @click="newGame()"
+        >
+          New Game
+        </button>
+      </div>
+
+      <div
+        id="gameboard"
+        class="sm:py-20 sm:pb-28 md:py-10 lg:py-5 px-10 grid gap-y-1 items-center w-100 justify-center"
+      >
+        <div v-for="(row, index1) in gameBoard" class="flex gap-1 w-fit">
+          <div
+            v-for="(cell, index2) in row"
+            class="sm:w-28 sm:h-28 sm:text-3xl smd:h-12 smd:w-12 smd:text-xl md:h-14 md:w-14 md:text-xl lg:w-14 lg:h-14 lg:text-xl grid place-items-center p-0 m-0 font-bold rounded-sm text-white border-2 border-gray-300 dark:bg-zinc-800"
+          >
+            {{ cell || ' ' }}
+          </div>
+        </div>
+
+        <div
+          class="grid place-items-center h-8 font-bold dark:text-white"
+        ></div>
+      </div>
+
+      <div class="flex flex-col items-center w-100 pb-5">
+        <div class="flex gap-1 my-0.5 w-fit">
+          <button
+            v-for="l in line1"
+            @click="key(l)"
+            class="sm:h-28 sm:w-20 sm:text-3xl smd:h-12 smd:w-10 smd:text-lg md:h-14 md:w-12 md:text-xl lg:w-12 lg:h-12 lg:text-base bg-zinc-400 text-white hover:bg-zinc-500 grid items-center rounded font-semibold cursor-pointer"
+          >
+            {{l}}
+          </button>
+        </div>
+        <div class="flex gap-1 my-0.5 w-fit">
+          <button
+            v-for="l in line2"
+            @click="key(l)"
+            class="sm:h-28 sm:w-20 sm:text-3xl smd:h-12 smd:w-10 smd:text-lg md:h-14 md:w-12 md:text-xl lg:w-12 lg:h-12 lg:text-base bg-zinc-400 text-white hover:bg-zinc-500 grid items-center rounded font-semibold cursor-pointer"
+          >
+            {{l}}
+          </button>
+        </div>
+        <div class="flex gap-1 my-0.5 w-fit">
+          <button
+            @click="key('Enter')"
+            class="sm:h-28 sm:p-12 sm:text-3xl smd:h-6 smd:p-6 smd:text-base md:h-14 md:p-6 md:text-lg lg:p-4 lg:h-12 lg:text-base bg-zinc-400 text-white hover:bg-zinc-500 flex items-center rounded font-semibold cursor-pointer"
+          >
+            ENTER
+          </button>
+
+          <button
+            v-for="l in line3"
+            @click="key(l)"
+            class="sm:w-20 sm:h-28 sm:text-3xl smd:h-12 smd:w-10 smd:text-lg md:h-14 md:w-12 md:text-xl lg:w-12 lg:h-12 lg:text-base bg-zinc-400 text-white hover:bg-zinc-500 grid items-center rounded font-semibold cursor-pointer"
+          >
+            {{l}}
+          </button>
+
+          <button
+            @click="key('Remove')"
+            class="sm:p-10 sm:px-16 sm:h-28 smd:h-6 smd:p-6 smd:text-base md:h-14 md:p-6 md:px-8 md:text-lg lg:p-4 lg:px-7 lg:h-12 bg-zinc-400 text-white hover:bg-zinc-500 flex items-center rounded font-semibold cursor-pointer"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              class="sm:w-8 sm:h-8 smd:w-4 smd:h-4 md:w-4 md:h-4 lg:w-4 lg:h-4"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708"
+              />
             </svg>
-          </div>
-
-          <p class="my-3">Esse jogo segue as mesmas regras do jogo original <strong>TERMO</strong>, uma palavara será
-            sorteada aleatoriamente</p>
-          <p class="my-3">Descubra a palavra certa em 6 tentativas. Depois de cada
-            tentativa, as peças mostram o quão perto você está da
-            solução.</p>
-          <div class="flex flex-col gap-5 border-t-2 border-black-20 pt-3"><b>Exemplos</b>
-            <div>
-              <div class="mb-2 flex gap-1">
-                <div
-                  class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 bg-green-700 dark:bg-green-700 border-green-700 dark:border-green-100 text-white">
-                  t</div>
-                <div
-                  class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-white">
-                  u</div>
-                <div
-                  class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-white">
-                  r</div>
-                <div
-                  class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-white">
-                  m</div>
-                <div
-                  class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-white">
-                  a</div>
-              </div>
-              <p>A letra <b>T</b> faz parte da palavra e está na posição correta</p>
-            </div>
-            <div>
-              <div class="mb-2 flex gap-1">
-                <div
-                  class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-white">
-                  v</div>
-                <div
-                  class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-white">
-                  i</div>
-                <div
-                  class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 bg-yellow-500 dark:bg-yellow-500 border-yellow-500 dark:border-yellow-500 text-white">
-                  o</div>
-                <div
-                  class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-white">
-                  l</div>
-                <div
-                  class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-white">
-                  a</div>
-              </div>
-              <p>A letra <b>O</b> faz parte da palavra mas em outra posição</p>
-            </div>
-            <div>
-              <div class="mb-2 flex gap-1">
-                <div
-                  class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-white">
-                  p</div>
-                <div
-                  class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-white">
-                  u</div>
-                <div
-                  class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-white">
-                  l</div>
-                <div
-                  class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 bg-zinc-600 dark:bg-zinc-600 border-bg-zinc-600 dark:border-black-10 text-white">
-                  g</div>
-                <div
-                  class="flex select-none items-center justify-center border-2 text-3xl font-bold uppercase h-10 w-10 border-gray-50 dark:border-gray-100 text-white">
-                  a</div>
-              </div>
-              <p>A letra <b>G</b> não faz parte da palavra</p>
-              <br>
-              <p>Boa sorte ;)</p>
-            </div>
-          </div>
+          </button>
         </div>
       </div>
     </div>
-    <!-- modal fim -->
 
-    <header
-      class="text-white flex items-center text-center font-bold sm:text-7xl sm:p-4 smd:text-3xl smd:p-2 md:text-4xl md:p-2 lg:text-4xl lg:p-2 font-mono">
-      <!-- SVG ? -->
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-        class="ml-2 sm:h-12 sm:w-12 smd:h-8 smd:w-8 md:h-8 md:w-8  lg:h-7 lg:w-7 cursor-pointer opacity-100 hover:opacity-80"
-        @click="openModal()">
-        <path fill="currentColor"
-          d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z">
-        </path>
-      </svg>
-      <div class="flex-1 text-center">{{name}}</div>
-    </header>
-    <hr />
+    <script src="words.js"></script>
+    <script>
+      const app = Vue.createApp({
+        data() {
+          const removeAccents = (str) =>
+            str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
+          newWord = removeAccents(
+            words[Math.floor(Math.random() * words.length)],
+          );
 
-
-
-    <div v-if="win" class="flex flex-col items-center lg:pt-4">
-      <div
-        class="text-green-600 text-center font-bold sm:text-5xl sm:pt-4 sm:pb-8 smd:text-2xl smd:pt-6 smd:pb-6 md:text-2xl md:pb-4 lg:text-2xl lg:pb-2 font-mono">
-        Parabens Você acertou :)</div>
-      <button
-        class="text-white bg-blue-500 font-bold rounded-md sm:p-4 sm:px-6 sm:text-3xl smd:p-2 smd:px-4 smd:text-lg md:p-2 md:px-4 md:text-lg lg:p-2 lg:px-4 lg:text-base"
-        @click="newGame()">New Game</button>
-    </div>
-
-    <div v-if="win === false" class="flex flex-col items-center">
-      <div
-        class="text-red-600 text-center font-bold sm:text-5xl sm:pt-4 sm:pb-8 smd:text-xl smd:pt-6 smd:pb-6 md:text-2xl md:pb-4 lg:text-2xl lg:pb-2 font-mono">
-        A
-        palavra era {{word}}, quem sabe na
-        proxima :(</div>
-      <button
-        class="text-white bg-blue-500 font-bold rounded-md sm:p-4 sm:px-6 sm:text-3xl smd:p-2 smd:px-4 smd:text-lg md:p-2 md:px-4 md:text-lg lg:p-2 lg:px-4 lg:text-base"
-        @click="newGame()">New Game</button>
-    </div>
-
-    <div id="gameboard" class="sm:py-20 sm:pb-28 md:py-10 lg:py-5 px-10 grid gap-y-1 items-center w-100 justify-center">
-      <div v-for="(row, index1) in gameBoard" class="flex gap-1 w-fit">
-        <div v-for="(cell, index2) in row"
-          class="sm:w-28 sm:h-28 sm:text-3xl smd:h-12 smd:w-12 smd:text-xl md:h-14 md:w-14 md:text-xl lg:w-14 lg:h-14 lg:text-xl grid place-items-center p-0 m-0 font-bold rounded-sm text-white border-2 border-gray-300 dark:bg-zinc-800 ">
-          {{ cell || ' ' }}
-        </div>
-      </div>
-
-      <div class="grid place-items-center h-8  font-bold dark:text-white"></div>
-    </div>
-
-    <div class="flex flex-col items-center  w-100 pb-5">
-      <div class="flex gap-1 my-0.5 w-fit">
-        <button v-for="l in line1" @click="key(l)"
-          class="sm:h-28 sm:w-20 sm:text-3xl smd:h-12 smd:w-10 smd:text-lg md:h-14 md:w-12 md:text-xl lg:w-12 lg:h-12 lg:text-base bg-zinc-400 text-white hover:bg-zinc-500 grid items-center rounded font-semibold cursor-pointer">
-          {{l}}
-        </button>
-
-      </div>
-      <div class="flex gap-1 my-0.5 w-fit">
-        <button v-for="l in line2" @click="key(l)"
-          class="sm:h-28 sm:w-20 sm:text-3xl smd:h-12 smd:w-10 smd:text-lg md:h-14 md:w-12 md:text-xl lg:w-12 lg:h-12 lg:text-base bg-zinc-400 text-white hover:bg-zinc-500 grid items-center rounded font-semibold cursor-pointer">
-          {{l}}
-        </button>
-
-
-      </div>
-      <div class="flex gap-1 my-0.5 w-fit">
-        <button @click="key('Enter')"
-          class=" sm:h-28 sm:p-12 sm:text-3xl smd:h-6 smd:p-6 smd:text-base md:h-14 md:p-6 md:text-lg lg:p-4 lg:h-12 lg:text-base bg-zinc-400 text-white hover:bg-zinc-500 flex items-center rounded font-semibold cursor-pointer">
-          ENTER
-        </button>
-
-        <button v-for="l in line3" @click="key(l)"
-          class="sm:w-20 sm:h-28 sm:text-3xl smd:h-12 smd:w-10 smd:text-lg md:h-14 md:w-12 md:text-xl  lg:w-12 lg:h-12 lg:text-base bg-zinc-400 text-white hover:bg-zinc-500 grid items-center rounded font-semibold cursor-pointer">
-          {{l}}
-        </button>
-
-        <button @click="key('Remove')"
-          class=" sm:p-10 sm:px-16 sm:h-28 smd:h-6 smd:p-6 smd:text-base md:h-14 md:p-6 md:px-8 md:text-lg lg:p-4 lg:px-7 lg:h-12 bg-zinc-400 text-white hover:bg-zinc-500 flex items-center rounded font-semibold cursor-pointer">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-            class="sm:w-8 sm:h-8 smd:w-4 smd:h-4 md:w-4 md:h-4 lg:w-4 lg:h-4" viewBox="0 0 16 16">
-            <path
-              d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708" />
-          </svg>
-        </button>
-      </div>
-    </div>
-
-  </div>
-
-  <script src="words.js"></script>
-  <script>
-    const app = Vue.createApp({
-      data() {
-
-        const removeAccents = str =>
-          str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-
-        newWord = removeAccents(words[Math.floor(Math.random() * words.length)]);
-
-        return {
-
-
-          name: "Metro",
-          word: newWord.toUpperCase(),
-          win: null,
-          currentLineIndex: 0,
-          line1: "QWERTYUIOP",
-          line2: "ASDFGHJKL",
-          line3: "ZXCVBNM",
-          showModal: false,
-          gameBoard: [
-            ['', '', '', '', ''],
-            ['', '', '', '', ''],
-            ['', '', '', '', ''],
-            ['', '', '', '', ''],
-            ['', '', '', '', ''],
-            ['', '', '', '', ''],
-
-          ],
-        };
-      },
-
-      methods: {
-
-        openModal() {
-          this.showModal = true;
+          return {
+            name: 'Metro',
+            word: newWord.toUpperCase(),
+            win: null,
+            currentLineIndex: 0,
+            line1: 'QWERTYUIOP',
+            line2: 'ASDFGHJKL',
+            line3: 'ZXCVBNM',
+            showModal: false,
+            gameBoard: [
+              ['', '', '', '', ''],
+              ['', '', '', '', ''],
+              ['', '', '', '', ''],
+              ['', '', '', '', ''],
+              ['', '', '', '', ''],
+              ['', '', '', '', ''],
+            ],
+          };
         },
 
-        closeModal() {
-          this.showModal = false;
-        },
+        methods: {
+          openModal() {
+            this.showModal = true;
+          },
 
-        newGame() {
-          location.reload();
-        },
+          closeModal() {
+            this.showModal = false;
+          },
 
-        sortWord(max, min) {
-          let valor = Math.random() * (max - min) + min
-          return Math.floor(valor)
-        },
+          newGame() {
+            location.reload();
+          },
 
-        querySelectorIncludesText(selector, text) {
-          return Array.from(document.querySelectorAll(selector))
-            .find(el => el.innerText == text);
-        },
+          sortWord(max, min) {
+            let valor = Math.random() * (max - min) + min;
+            return Math.floor(valor);
+          },
 
-        key(l) {
-          if (l === 'Enter') {
-            const currentLine = this.gameBoard[this.currentLineIndex]
-            const currentArray = [...currentLine]
+          querySelectorIncludesText(selector, text) {
+            return Array.from(document.querySelectorAll(selector)).find(
+              (el) => el.innerText == text,
+            );
+          },
 
-            if (currentArray.includes("")) {
-              return
-            }
-            else {
+          key(l) {
+            if (l === 'Enter') {
+              const currentLine = this.gameBoard[this.currentLineIndex];
+              const currentArray = [...currentLine];
 
-              if (this.currentLineIndex === 5) {
+              if (currentArray.includes('')) {
+                return;
+              } else {
+                if (this.currentLineIndex === 5) {
+                  const buttons = document.getElementsByTagName('button');
+                  for (const button of buttons) {
+                    button.disabled = true;
+                  }
 
-                const buttons = document.getElementsByTagName("button");
-                for (const button of buttons) {
-                  button.disabled = true;
+                  this.win = false;
                 }
 
-                this.win = false
+                if (currentArray.join('') === this.word) {
+                  divs = document
+                    .querySelector('#gameboard')
+                    .childNodes[
+                      this.currentLineIndex + 1
+                    ].querySelectorAll('div');
 
+                  for (const [index, d] of divs.entries()) {
+                    d.classList.remove('dark:bg-zinc-800');
+                    d.classList.add('bg-green-700');
+                  }
 
+                  this.win = true;
+                } else {
+                  info = this.checkWord(currentArray.join(''));
 
+                  divs = document
+                    .querySelector('#gameboard')
+                    .childNodes[
+                      this.currentLineIndex + 1
+                    ].querySelectorAll('div');
+
+                  for (const [index, d] of divs.entries()) {
+                    if (info.verdes.includes(index + 1)) {
+                      d.classList.remove('dark:bg-zinc-800');
+                      d.classList.add('bg-green-700');
+                    } else if (info.amarelas.includes(index + 1)) {
+                      d.classList.remove('dark:bg-zinc-800');
+                      d.classList.add('bg-yellow-500');
+                      btn = this.querySelectorIncludesText(
+                        'button',
+                        d.innerText,
+                      );
+                    } else {
+                      d.classList.remove('dark:bg-zinc-800');
+                      d.classList.add('bg-zinc-600');
+                      btn = this.querySelectorIncludesText(
+                        'button',
+                        d.innerText,
+                      );
+                      btn.classList.remove('bg-zinc-400');
+                      btn.classList.add('bg-zinc-600');
+                    }
+                  }
+
+                  this.moveToNextLine();
+                }
               }
-
-              if (currentArray.join('') === this.word) {
-
-                divs = document.querySelector('#gameboard').childNodes[this.currentLineIndex + 1].querySelectorAll('div')
-
-                for (const [index, d] of divs.entries()) {
-                  d.classList.remove('dark:bg-zinc-800')
-                  d.classList.add('bg-green-700')
-
-                }
-
-                this.win = true
-
-              }
-              else {
-
-                info = this.checkWord(currentArray.join(''))
-
-                divs = document.querySelector('#gameboard').childNodes[this.currentLineIndex + 1].querySelectorAll('div')
-
-                for (const [index, d] of divs.entries()) {
-
-                  if (info.verdes.includes(index + 1)) {
-                    d.classList.remove('dark:bg-zinc-800')
-                    d.classList.add('bg-green-700')
-
-                  }
-
-                  else if (info.amarelas.includes(index + 1)) {
-                    d.classList.remove('dark:bg-zinc-800')
-                    d.classList.add('bg-yellow-500')
-                    btn = this.querySelectorIncludesText('button', d.innerText)
-
-                  }
-
-                  else {
-                    d.classList.remove('dark:bg-zinc-800')
-                    d.classList.add('bg-zinc-600')
-                    btn = this.querySelectorIncludesText('button', d.innerText)
-                    btn.classList.remove('bg-zinc-400')
-                    btn.classList.add('bg-zinc-600')
-
-
-                  }
-
-                }
-
-
-                this.moveToNextLine();
+            } else if (l === 'Remove') {
+              this.removeLastFilledElement();
+            } else {
+              // Obtém a linha atual com base no índice atual
+              const currentLine = this.gameBoard[this.currentLineIndex];
+              // Encontra o primeiro espaço vazio na linha atual e preenche com a letra
+              const emptyIndex = currentLine.indexOf('');
+              if (emptyIndex !== -1) {
+                currentLine[emptyIndex] = l;
               }
             }
+          },
+          moveToNextLine() {
+            // Incrementa o índice da linha atual se não for a última linha
+            if (this.currentLineIndex < this.gameBoard.length - 1) {
+              this.currentLineIndex++;
+            }
+          },
 
-
-          }
-          else if (l === 'Remove') {
-            this.removeLastFilledElement();
-
-          }
-          else {
-
+          removeLastFilledElement() {
             // Obtém a linha atual com base no índice atual
             const currentLine = this.gameBoard[this.currentLineIndex];
-            // Encontra o primeiro espaço vazio na linha atual e preenche com a letra
-            const emptyIndex = currentLine.indexOf('');
-            if (emptyIndex !== -1) {
-              currentLine[emptyIndex] = l;
+            // Encontra o índice do último elemento preenchido na linha atual
+            let lastFilledIndex = -1;
+            for (let i = currentLine.length - 1; i >= 0; i--) {
+              if (currentLine[i] !== '') {
+                lastFilledIndex = i;
+                break;
+              }
+            }
+            // Se houver um último elemento preenchido, limpa esse índice
+            if (lastFilledIndex !== -1) {
+              currentLine[lastFilledIndex] = '';
+            }
+          },
+
+          checkWord(currentWord) {
+            let verdes = [];
+            let amarelas = [];
+
+            // Inicializa o contadorOriginal com 0 para cada letra da palavra original
+            const contadorOriginal = {};
+            // Inicializa o contadorAtual com 0 para cada letra da palavra atual
+            const contadorAtual = {};
+
+            // Preenche os contadores para cada palavra
+            for (const letra of this.word) {
+              contadorOriginal[letra] = (contadorOriginal[letra] || 0) + 1;
             }
 
+            for (const letra of currentWord) {
+              contadorAtual[letra] = (contadorAtual[letra] || 0) + 1;
+            }
 
-          }
+            // Verifica as letras verdes
+            for (let i = 0; i < currentWord.length; i++) {
+              const letraAtual = currentWord[i];
+              const letraOriginal = this.word[i];
 
+              if (letraAtual === letraOriginal) {
+                verdes.push(i + 1);
+                // Decrementa o contadorAtual para evitar que a letra seja contada novamente
+                contadorAtual[letraAtual]--;
+                // Decrementa o contadorOriginal para evitar que a letra seja contada novamente
+                contadorOriginal[letraOriginal]--;
+              }
+            }
+
+            // Verifica as letras amarelas
+            for (let i = 0; i < currentWord.length; i++) {
+              const letraAtual = currentWord[i];
+              const letraOriginal = this.word[i];
+
+              if (
+                letraAtual !== letraOriginal &&
+                contadorOriginal[letraAtual] > 0
+              ) {
+                amarelas.push(i + 1);
+                // Decrementa o contadorOriginal para evitar que a letra seja contada novamente como amarela
+                contadorOriginal[letraAtual]--;
+              }
+            }
+
+            const info = {
+              verdes: verdes,
+              amarelas: amarelas,
+            };
+
+            return info;
+          },
         },
-        moveToNextLine() {
-          // Incrementa o índice da linha atual se não for a última linha
-          if (this.currentLineIndex < this.gameBoard.length - 1) {
-            this.currentLineIndex++;
-          }
-        },
+      });
 
-        removeLastFilledElement() {
-          // Obtém a linha atual com base no índice atual
-          const currentLine = this.gameBoard[this.currentLineIndex];
-          // Encontra o índice do último elemento preenchido na linha atual
-          let lastFilledIndex = -1;
-          for (let i = currentLine.length - 1; i >= 0; i--) {
-            if (currentLine[i] !== '') {
-              lastFilledIndex = i;
-              break;
-            }
-          }
-          // Se houver um último elemento preenchido, limpa esse índice
-          if (lastFilledIndex !== -1) {
-            currentLine[lastFilledIndex] = '';
-          }
-        },
-
-
-        checkWord(currentWord) {
-          let verdes = [];
-          let amarelas = [];
-
-          // Inicializa o contadorOriginal com 0 para cada letra da palavra original
-          const contadorOriginal = {};
-          // Inicializa o contadorAtual com 0 para cada letra da palavra atual
-          const contadorAtual = {};
-
-          // Preenche os contadores para cada palavra
-          for (const letra of this.word) {
-            contadorOriginal[letra] = (contadorOriginal[letra] || 0) + 1;
-          }
-
-          for (const letra of currentWord) {
-            contadorAtual[letra] = (contadorAtual[letra] || 0) + 1;
-          }
-
-          // Verifica as letras verdes
-          for (let i = 0; i < currentWord.length; i++) {
-            const letraAtual = currentWord[i];
-            const letraOriginal = this.word[i];
-
-            if (letraAtual === letraOriginal) {
-              verdes.push(i + 1);
-              // Decrementa o contadorAtual para evitar que a letra seja contada novamente
-              contadorAtual[letraAtual]--;
-              // Decrementa o contadorOriginal para evitar que a letra seja contada novamente
-              contadorOriginal[letraOriginal]--;
-            }
-          }
-
-          // Verifica as letras amarelas
-          for (let i = 0; i < currentWord.length; i++) {
-            const letraAtual = currentWord[i];
-            const letraOriginal = this.word[i];
-
-            if (letraAtual !== letraOriginal && contadorOriginal[letraAtual] > 0) {
-              amarelas.push(i + 1);
-              // Decrementa o contadorOriginal para evitar que a letra seja contada novamente como amarela
-              contadorOriginal[letraAtual]--;
-            }
-          }
-
-          const info = {
-            'verdes': verdes,
-            'amarelas': amarelas
-          };
-
-          return info;
-        }
-
-      }
-
-    });
-
-    app.mount("#app");
-  </script>
-</body>
-
+      app.mount('#app');
+    </script>
+  </body>
 </html>
