@@ -1,9 +1,11 @@
 {
   "scripts": {
     "server": "npx five-server",
-    "css": "npx tailwindcss -i input.css -o output.css --watch"
+    "css": "npx tailwindcss -i input.css -o output.css --watch",
+    "format": "npx prettier . --write --single-quote --trailing-comma all"
   },
   "devDependencies": {
+    "prettier": "3.5.3",
     "tailwindcss": "^3.4.17"
   },
   "dependencies": {
