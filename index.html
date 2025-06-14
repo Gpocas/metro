@@ -2,7 +2,7 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta meta name="viewport" content=" maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="maximum-scale=1.0, user-scalable=no" />
     <title>Metro Game</title>
     <link href="./output.css" rel="stylesheet" />
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
@@ -46,7 +46,7 @@
 
             <p class="my-3">
               Esse jogo segue as mesmas regras do jogo original
-              <strong>TERMO</strong>, uma palavara será sorteada aleatoriamente
+              <strong>TERMO</strong>, uma palavra será sorteada aleatoriamente
             </p>
             <p class="my-3">
               Descubra a palavra certa em 6 tentativas. Depois de cada
@@ -332,6 +332,8 @@
           },
 
           key(l) {
+            if (this.win !== null || this.showModal) return; // Ignora teclas se o jogo terminou ou modal está aberto
+
             if (l === 'Enter') {
               const currentLine = this.gameBoard[this.currentLineIndex];
               const currentArray = [...currentLine];
@@ -408,6 +410,20 @@
               }
             }
           },
+
+          handleKeydown(event) {
+            if (this.win !== null || this.showModal) return; // Ignora teclas se o jogo terminou ou modal está aberto
+
+            const key = event.key.toUpperCase();
+            if (key === 'ENTER') {
+              this.key('Enter');
+            } else if (key === 'BACKSPACE') {
+              this.key('Remove');
+            } else if (/^[A-Z]$/.test(key) && this.line1.concat(this.line2, this.line3).includes(key)) {
+              this.key(key);
+            }
+          },
+
           moveToNextLine() {
             // Incrementa o índice da linha atual se não for a última linha
             if (this.currentLineIndex < this.gameBoard.length - 1) {
@@ -486,6 +502,16 @@
 
             return info;
           },
+        },
+
+        mounted() {
+          // Adiciona o ouvinte de eventos de teclado
+          window.addEventListener('keydown', this.handleKeydown);
+        },
+
+        beforeUnmount() {
+          // Remove o ouvinte de eventos de teclado ao desmontar o componente
+          window.removeEventListener('keydown', this.handleKeydown);
         },
       });
 
